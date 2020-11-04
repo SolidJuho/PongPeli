@@ -25,21 +25,34 @@ void setup(void) {
   tft.setRotation(1);
   splashScreen();
   delay(500);  
-  
-  tft.fillScreen(ST7735_BLACK);
-  
-  printTitle();
+  printMainMenu();
+
+}
+
+void printMainMenu(){
+  tft.fillScreen(ST7735_BLACK);  
+  printTitle(40, "Valikko");
   printMenuItems();
   highlightItem(0,0);
 }
+
+
+void (* resetFunc)(void) = 0;
+
+void restartArduino(){
+  resetFunc();
+}
+
+
 
 void loop() {
   //Check if in game state.
   //If not, print menu.
   //Read input
-  delay(500);
-
-  
+  delay(1000);
+  menuGoDown();
+  delay(1000);
+  PrintCredits();
   //int newDebugID = random(3);
   //highlightItem(menuId, newDebugID);
   //menuGoUp();

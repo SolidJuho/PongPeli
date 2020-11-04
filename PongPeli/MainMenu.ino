@@ -31,10 +31,10 @@ void splashScreen(){
   tft.println("   _      _\n       __(.)< __(.)=\n       \\___)  \\___)");  
 }
 
-void printTitle(){
+void printTitle(int xPos,char _text[]){
   tft.setTextSize(2);  
-  tft.setCursor(40,10);
-  tft.print("Valikko");
+  tft.setCursor(xPos,10);
+  tft.print(_text);
   tft.drawFastHLine(0,30,160, ST7735_WHITE);
 }
 
@@ -45,9 +45,13 @@ void printMenuItems(){
 }
 
 void printItem(int yPos, int menuID){
-  Serial.print(menuID);
   tft.setCursor(40,yPos);
   tft.print(menuNames[menuID]);
+}
+
+void printItem(int xPos, int yPos, char _text[]){
+  tft.setCursor(xPos,yPos);
+  tft.print(_text);
 }
 
 int menuItemHeight(int menuId){
@@ -67,4 +71,15 @@ void highlightItem(int oldHighlight, int newHighlight){
   tft.print(">>");
 
   menuId = newHighlight;
+}
+
+void PrintCredits(){
+  tft.fillScreen(ST7735_BLACK);
+  printTitle(10,"Tekijat");
+  tft.setTextSize(1);
+  printItem(10,menuItemHeight(0)*0.7, "Juho Vatanen");
+  printItem(10,menuItemHeight(1)*0.7, "Elias Turpeenniemi");
+  printItem(10,menuItemHeight(2)*0.7, "Niko Malm");
+  delay(10000);
+  printMainMenu();
 }
