@@ -80,6 +80,10 @@ void PrintCredits(){
   printItem(10,menuItemHeight(0)*0.7, "Juho Vatanen");
   printItem(10,menuItemHeight(1)*0.7, "Elias Turpeenniemi");
   printItem(10,menuItemHeight(2)*0.7, "Niko Malm");
+  
+  tft.setTextSize(2);
+  
+  printItem(10,menuItemHeight(3), "OAMK - 2020");
   delay(10000);
   printMainMenu();
 }
