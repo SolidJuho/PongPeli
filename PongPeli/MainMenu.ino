@@ -1,5 +1,16 @@
 //Functiot joita käytetään valikossa siirtymisiin ja piirtämiseen.
 
+const int startY = 50;
+int menuId;
+
+
+void printMainMenu(){
+  tft.fillScreen(ST7735_BLACK);  
+  printTitle(40, "Valikko");
+  printMenuItems();
+  highlightItem(menuId,menuId);
+}
+
 void menuGoUp(){
   if(menuId == 0){
     //Top of the list, Go to bottom.    
@@ -81,9 +92,10 @@ void PrintCredits(){
   printItem(10,menuItemHeight(1)*0.7, "Elias Turpeenniemi");
   printItem(10,menuItemHeight(2)*0.7, "Niko Malm");
   
-  tft.setTextSize(2);
-  
-  printItem(10,menuItemHeight(3), "OAMK - 2020");
+  tft.setTextSize(2);  
+  //tft.setTextColor(ST7735_ORANGE);  
+  printItem(10,menuItemHeight(3), "OAMK - 2020");  
+  //tft.setTextColor(ST7735_WHITE);  
   delay(10000);
   printMainMenu();
 }
