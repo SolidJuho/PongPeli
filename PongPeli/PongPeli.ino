@@ -85,8 +85,7 @@ void ballUpdate(){
   }
 
   if((new_x == PlayerPosX1+3 && new_y > playerPosY1 && new_y < playerPosY1+playerSize )|| new_x == PlayerPosX2-2 && new_y > playerPosY2 && new_y < playerPosY2+playerSize){
-    //Hit from P1
-    ballDirY = -ballDirY;    
+    //Hit from P1   
     ballDirX = -ballDirX;
   }
   
