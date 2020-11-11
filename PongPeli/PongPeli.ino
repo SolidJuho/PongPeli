@@ -21,8 +21,17 @@ int currentMode = 0; //0 = Main Menu, 1 = Pong
 int playerSize = 42;
 
 //PlayerLocations
-int playerPos1 = 42; //Pelaaja
-int playerPos2 = 42; //"Tekoäly"
+const int PlayerPosX1 = 9;
+const int PlayerPosX2 = 150;
+int playerPosY1 = 42; //Pelaaja
+int playerPosY2 = 42; //"Tekoäly"
+
+
+///Ball data
+int ballX;
+int ballY;
+int ballDirX;
+int ballDirY;
 
 void setup(void) {  
   Serial.begin(9600);
@@ -52,40 +61,46 @@ void loop() {
     delay(1000);
     StartPong();
   }else{
-    //Game Loop.
-    MovePlayerDown(1);
-    MovePlayerDown(2);
-    delay(33);
-    MovePlayerDown(1);
-    MovePlayerDown(2);
-    delay(33);
-    MovePlayerDown(1);
-    MovePlayerDown(2);
-    delay(33);
-    MovePlayerDown(1);
-    MovePlayerDown(2);
-    delay(33);
-    MovePlayerDown(1);
-    MovePlayerDown(2);
-    delay(33);
-    MovePlayerUp(1);
-    MovePlayerUp(2);
-    delay(33);
-    MovePlayerUp(1);
-    MovePlayerUp(2);
-    delay(33);
-    MovePlayerUp(1);
-    MovePlayerUp(2);
-    delay(33);
-    MovePlayerUp(1);
-    MovePlayerUp(2);
-    delay(33);
-    MovePlayerUp(1);
-    MovePlayerUp(2);
-    delay(33);
+    ballUpdate();
   }
-  delay(33); //33ms = 30FPS, 16ms = 60FPS, 41ms = 24FPS.
+  delay(16); //33ms = 30FPS, 16ms = 60FPS, 41ms = 24FPS.
 }
+
+void ballUpdate(){
+  int new_x = ballX + ballDirX;
+  int new_y = ballY + ballDirY;
+  //Check hits.
+  if(new_x==0){
+    //AI Maali
+    return setupBall(ballX, ballY);
+  }else if(new_x+1==160){
+    //Pelaaja maali.
+    return setupBall(ballX, ballY);
+  }
+
+  //Check floor/ceiling
+  if(new_y == 0 || new_y == 128){
+    ballDirY = -ballDirY;    
+    new_y = ballY + ballDirY;
+  }
+
+  if((new_x == PlayerPosX1+3 && new_y > playerPosY1 && new_y < playerPosY1+playerSize )|| new_x == PlayerPosX2-2 && new_y > playerPosY2 && new_y < playerPosY2+playerSize){
+    //Hit from P1
+    ballDirY = -ballDirY;    
+    ballDirX = -ballDirX;
+  }
+  
+  //undrawOldBall
+  tft.fillCircle(ballX, ballY, 1, ST7735_BLACK);
+
+  //Calculate ball pos
+  ballX = new_x;
+  ballY = new_y;
+  
+  //drawNewBall
+  tft.fillCircle(ballX, ballY, 1, ST7735_WHITE);
+}
+
 
 void StartPong(){
   //Draw game.
@@ -94,12 +109,36 @@ void StartPong(){
   drawBoard();
   //Set gamemode.
   currentMode = 1;
+  //Create ball at middle with random posY and dir.
+  setupBall();
+}
+
+void setupBall(){
+  ballY = random(40,84);  
+  ballX = 84;
+  ballDirX = randomDir();
+  ballDirY = randomDir();
+}
+
+void setupBall(int oldX, int oldY){
+  tft.fillCircle(oldX, oldY, 1, ST7735_BLACK);
+  ballY = random(20,104);  
+  ballX = 84;
+  ballDirX = randomDir();
+  ballDirY = randomDir();
 }
 
 void drawBoard(){
   drawPlayer(9);
   drawPlayer(150);
   //drawBall();
+}
+
+int randomDir(){
+  int i = random(0,2);
+  if(i == 0)
+    i = -1;
+  return i;
 }
 
 void drawPlayer(int xPos){
@@ -112,44 +151,44 @@ void drawPlayer(int xPos){
 void MovePlayerUp(int playerID){
   if(playerID == 1){
     //DrawNewPixels
-    tft.drawPixel(9, playerPos1+43, ST7735_WHITE);
-    tft.drawPixel(10, playerPos1+43 , ST7735_WHITE);
+    tft.drawPixel(PlayerPosX1, playerPosY1+43, ST7735_WHITE);
+    tft.drawPixel(PlayerPosX1+1, playerPosY1+43 , ST7735_WHITE);
 
     //Undraw old ones
-    tft.drawPixel(9, playerPos1, ST7735_BLACK);
-    tft.drawPixel(10, playerPos1, ST7735_BLACK);
-    playerPos1++;
+    tft.drawPixel(PlayerPosX1, playerPosY1, ST7735_BLACK);
+    tft.drawPixel(PlayerPosX1+1, playerPosY1, ST7735_BLACK);
+    playerPosY1++;
   } else {
     //DrawNewPixels
-    tft.drawPixel(150, playerPos2+43, ST7735_WHITE);
-    tft.drawPixel(151, playerPos2+43 , ST7735_WHITE);
+    tft.drawPixel(PlayerPosX2, playerPosY2+43, ST7735_WHITE);
+    tft.drawPixel(PlayerPosX2+1, playerPosY2+43 , ST7735_WHITE);
 
     //Undraw old ones
-    tft.drawPixel(150, playerPos2, ST7735_BLACK);
-    tft.drawPixel(151, playerPos2, ST7735_BLACK);
-    playerPos2++;
+    tft.drawPixel(PlayerPosX2, playerPosY2, ST7735_BLACK);
+    tft.drawPixel(PlayerPosX2+1, playerPosY2, ST7735_BLACK);
+    playerPosY2++;
   }
 }
 
 void MovePlayerDown(int playerID){
   if(playerID == 1){
     //DrawNewPixels
-    tft.drawPixel(9, playerPos1-1, ST7735_WHITE);
-    tft.drawPixel(10, playerPos1-1, ST7735_WHITE);
+    tft.drawPixel(PlayerPosX1, playerPosY1-1, ST7735_WHITE);
+    tft.drawPixel(PlayerPosX1+1, playerPosY1-1, ST7735_WHITE);
     
     //Undraw old ones
-    tft.drawPixel(9, playerPos1+43, ST7735_BLACK);
-    tft.drawPixel(10, playerPos1+43 , ST7735_BLACK);
-    playerPos1--;
+    tft.drawPixel(PlayerPosX1, playerPosY1+43, ST7735_BLACK);
+    tft.drawPixel(PlayerPosX1+1, playerPosY1+43 , ST7735_BLACK);
+    playerPosY1--;
     } else {
     //DrawNewPixels
-    tft.drawPixel(150, playerPos2-1, ST7735_WHITE);
-    tft.drawPixel(151, playerPos2-1, ST7735_WHITE);
+    tft.drawPixel(PlayerPosX2, playerPosY2-1, ST7735_WHITE);
+    tft.drawPixel(PlayerPosX2+1, playerPosY2-1, ST7735_WHITE);
     
     //Undraw old ones
-    tft.drawPixel(150, playerPos2+43, ST7735_BLACK);
-    tft.drawPixel(151, playerPos2+43 , ST7735_BLACK);
+    tft.drawPixel(PlayerPosX2, playerPosY2+43, ST7735_BLACK);
+    tft.drawPixel(PlayerPosX2+1, playerPosY2+43 , ST7735_BLACK);
 
-    playerPos2--;
+    playerPosY2--;
   }
 }
