@@ -16,7 +16,8 @@
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
 const char menuNames[MenuItemCount][8] = { "Pelaa", "Tekijat", "Lopeta" };
-
+const unsigned long PADDLE_RATE = 10;
+const uint8_t PADDLE_HEIGHT = 50;
 int currentMode = 0; //0 = Main Menu, 1 = Pong
 int playerSize = 42;
 
@@ -32,7 +33,7 @@ int ballX;
 int ballY;
 int ballDirX;
 int ballDirY;
-
+unsigned long paddle_update;
 void setup(void) {  
   Serial.begin(9600);
   tft.initR(INITR_BLACKTAB);  
@@ -40,7 +41,7 @@ void setup(void) {
   splashScreen();
   delay(500);  
   printMainMenu();
-
+paddle_update = ballUpdate;
 }
 
 
@@ -55,7 +56,7 @@ void restartArduino(){
 
 
 void loop() {
-
+unsigned long time = millis();
   if(currentMode == 0){
     //Main menu loop.
     delay(1000);
@@ -64,6 +65,7 @@ void loop() {
     ballUpdate();
   }
   delay(16); //33ms = 30FPS, 16ms = 60FPS, 41ms = 24FPS.
+  AI();
 }
 
 void ballUpdate(){
@@ -190,5 +192,4 @@ void MovePlayerDown(int playerID){
 
     playerPosY2--;
   }
-  AI();
 }
