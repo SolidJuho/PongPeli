@@ -190,4 +190,5 @@ void MovePlayerDown(int playerID){
 
     playerPosY2--;
   }
+  AI();
 }
