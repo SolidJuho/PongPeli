@@ -25,7 +25,7 @@ int playerPosY1 = 42; //Pelaaja
 int playerPosY2 = 42; //"Tekoäly"
 
 const char DOWN_BUTTON = 3; //
-bool pressed = false;
+
 const char UP_BUTTON = 2;
 
 
@@ -65,17 +65,18 @@ void restartArduino(){
 
 
 void loop() {
+  playercontrolls(); //kutsutaan void playercontrolls toisesta tabistä looppiin
   if(currentMode == 0){
     //Main menu loop.
-    delay(1000);
-    StartPong();
+  
+   
   }else{
     ballUpdate();
     AI();
   }
   delay(16); //33ms = 30FPS, 16ms = 60FPS, 41ms = 24FPS.
 
-   playercontrolls(); //kutsutaan void playercontrolls toisesta tabistä looppiin
+   
   
 }
 

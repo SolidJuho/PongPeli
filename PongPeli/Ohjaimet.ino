@@ -1,18 +1,10 @@
-
- 
-   void playercontrolls(){  
-    
-      bool currentState = digitalRead(UP_BUTTON); 
-     // Paddle liikkuu ylös kun nappia painetaan.
-        if(currentState == pressed) {
+void playercontrolls(){  
+ // Paddle liikkuu ylös kun nappia painetaan.
+        if(!digitalRead(UP_BUTTON)) {
             MovePlayerUp(1);
-
-        }
-
-      bool currentState1 = digitalRead(DOWN_BUTTON);  
+      }
        //Paddle liikkuu alas kun nappia painetaan.
-        if(currentState1 == pressed) {
+        if(!digitalRead(DOWN_BUTTON)) {
             MovePlayerDown(1);
-
         }
-        }
+}
