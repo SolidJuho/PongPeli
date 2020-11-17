@@ -24,6 +24,11 @@ const int PlayerPosX2 = 150;
 int playerPosY1 = 42; //Pelaaja
 int playerPosY2 = 42; //"Tekoäly"
 
+const char DOWN_BUTTON = 3; //
+bool pressed = false;
+const char UP_BUTTON = 2;
+
+
 
 ///Ball data
 int ballX;
@@ -40,6 +45,12 @@ void setup(void) {
   delay(500);  
   printMainMenu();
 paddle_update = ballUpdate;
+
+   pinMode(UP_BUTTON, INPUT_PULLUP); // Inputataan ylös nappi ylösvetovastukseen
+   pinMode(DOWN_BUTTON, INPUT_PULLUP); // Inputataan alas nappi ylösvetovastukseen
+
+
+
 }
 
 
@@ -63,6 +74,8 @@ void loop() {
     AI();
   }
   delay(16); //33ms = 30FPS, 16ms = 60FPS, 41ms = 24FPS.
+
+   playercontrolls(); //kutsutaan void playercontrolls toisesta tabistä looppiin
   
 }
 
