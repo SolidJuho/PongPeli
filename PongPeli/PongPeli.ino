@@ -24,9 +24,9 @@ const int PlayerPosX2 = 150;
 int playerPosY1 = 42; //Pelaaja
 int playerPosY2 = 42; //"Tekoäly"
 
-const char DOWN_BUTTON = 3; //
-
-const char UP_BUTTON = 2;
+const char SELECT_BUTTON = 4; //Valitse nappi
+const char DOWN_BUTTON = 3; //Alas nappi
+const char UP_BUTTON = 2;//Ylös nappi
 
 
 
@@ -44,11 +44,11 @@ void setup(void) {
   splashScreen();
   delay(500);  
   printMainMenu();
-paddle_update = ballUpdate;
-
+  paddle_update = ballUpdate;
+  
    pinMode(UP_BUTTON, INPUT_PULLUP); // Inputataan ylös nappi ylösvetovastukseen
    pinMode(DOWN_BUTTON, INPUT_PULLUP); // Inputataan alas nappi ylösvetovastukseen
-
+   pinMode(SELECT_BUTTON, INPUT_PULLUP); // Inputataan valitse nappi ylösvetovastukseen
 
 
 }
@@ -65,6 +65,7 @@ void restartArduino(){
 
 
 void loop() {
+  mainemenucontrolls(); //kutsutaan void mainmenucontrolls toisesta tabistä looppiin
   playercontrolls(); //kutsutaan void playercontrolls toisesta tabistä looppiin
   if(currentMode == 0){
     //Main menu loop.

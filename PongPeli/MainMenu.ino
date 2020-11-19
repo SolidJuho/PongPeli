@@ -11,7 +11,7 @@ void printMainMenu(){
   highlightItem(menuId,menuId);
 }
 
-void menuGoUp(){
+void menuGoDown(){
   if(menuId == 0){
     //Top of the list, Go to bottom.    
     highlightItem(menuId, MenuItemCount-1);
@@ -20,7 +20,7 @@ void menuGoUp(){
   }
 }
 
-void menuGoDown(){
+void menuGoUp(){
    if(menuId == MenuItemCount-1){
     //Top of the list, Go to bottom.    
     highlightItem(menuId, 0);
@@ -99,3 +99,18 @@ void PrintCredits(){
   delay(10000);
   printMainMenu();
 }
+
+void executeAction(){
+  switch(menuId){
+    case 0:
+    StartPong();
+    break;
+    case 1:
+    PrintCredits();
+    break;
+    case 2:
+    restartArduino();
+    break;
+  }
+}
+ 
