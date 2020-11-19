@@ -10,11 +10,11 @@
 #define TFT_SCLK 13   
 #define TFT_MOSI 11   
 
-#define MenuItemCount 3
+#define MenuItemCount 4
 //Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCLK, TFT_RST);
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
-const char menuNames[MenuItemCount][8] = { "Pelaa", "Tekijat", "Lopeta" };
+const char menuNames[MenuItemCount][9] = { "Pelaa", "Tekijat", "Lopeta", "Asetukset"};
 const unsigned long PADDLE_RATE = 50;
 int currentMode = 0; //0 = Main Menu, 1 = Pong
 int playerSize = 42;
