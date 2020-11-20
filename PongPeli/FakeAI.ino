@@ -1,7 +1,7 @@
 void AI() {
   
-if(paddle_update && currentMode==1) {
-  paddle_update += PADDLE_RATE; // Paddle_update = BallUpdate eli maila liikkuu pallon mukaan
+if(millis()> paddle_update && currentMode==1) {
+  paddle_update += PADDLE_RATE; //
 
 const uint8_t half_paddle = playerSize >> 1;
 

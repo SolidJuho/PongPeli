@@ -14,8 +14,9 @@
 //Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCLK, TFT_RST);
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
-const char menuNames[MenuItemCount][9] = { "Pelaa", "Tekijat", "Lopeta", "Asetukset"};
-const unsigned long PADDLE_RATE = 50;
+const char menuNames[MenuItemCount][10] = { "Pelaa", "Tekijat", "Asetukset", "Lopeta"};
+int PADDLE_RATE = 1;
+int paddle_update;
 int currentMode = 0; //0 = Main Menu, 1 = Pong
 int playerSize = 42;
 //PlayerLocations
@@ -36,7 +37,6 @@ int ballY;
 int ballDirX;
 int ballDirY;
 
-unsigned long paddle_update;
 void setup(void) { 
   Serial.begin(9600);
   tft.initR(INITR_BLACKTAB);  
@@ -44,12 +44,10 @@ void setup(void) {
   splashScreen();
   delay(500);  
   printMainMenu();
-  paddle_update = ballUpdate;
-  
    pinMode(UP_BUTTON, INPUT_PULLUP); // Inputataan ylös nappi ylösvetovastukseen
    pinMode(DOWN_BUTTON, INPUT_PULLUP); // Inputataan alas nappi ylösvetovastukseen
    pinMode(SELECT_BUTTON, INPUT_PULLUP); // Inputataan valitse nappi ylösvetovastukseen
-
+   paddle_update=millis();
 
 }
 
@@ -69,7 +67,7 @@ void loop() {
   playercontrolls(); //kutsutaan void playercontrolls toisesta tabistä looppiin
   if(currentMode == 0){
     //Main menu loop.
-  
+  unsigned long time = millis();
    
   }else{
     ballUpdate();
@@ -125,6 +123,7 @@ void StartPong(){
   currentMode = 1;
   //Create ball at middle with random posY and dir.
   setupBall();
+
 }
 
 void setupBall(){
@@ -132,6 +131,7 @@ void setupBall(){
   ballX = 84;
   ballDirX = randomDir();
   ballDirY = randomDir();
+  
 }
 
 void setupBall(int oldX, int oldY){
@@ -140,12 +140,14 @@ void setupBall(int oldX, int oldY){
   ballX = 84;
   ballDirX = randomDir();
   ballDirY = randomDir();
+
 }
 
 void drawBoard(){
   drawPlayer(9);
   drawPlayer(150);
   //drawBall();
+
 }
 
 int randomDir(){
