@@ -63,6 +63,7 @@ void restartArduino(){
 
 
 void loop() {
+  returnToMainMenu(); //Kutsutaan void returnToMainMenu toisesta tabistä looppiin
   mainemenucontrolls(); //kutsutaan void mainmenucontrolls toisesta tabistä looppiin
   playercontrolls(); //kutsutaan void playercontrolls toisesta tabistä looppiin
   if(currentMode == 0){
