@@ -59,7 +59,10 @@ void printItem(int yPos, int menuID){
   tft.setCursor(40,yPos);
   tft.print(menuNames[menuID]);
 }
-
+void printItem(int xPos,int yPos, int valuetoPrint){
+  tft.setCursor(xPos,yPos);
+  tft.print(valuetoPrint);
+}
 void printItem(int xPos, int yPos, char _text[]){
   tft.setCursor(xPos,yPos);
   tft.print(_text);
@@ -109,8 +112,21 @@ void executeAction(){
     PrintCredits();
     break;
     case 2:
+    asetukset();
+    break;
+    case 3:
     restartArduino();
     break;
+  }    
   }
-}
+  void asetukset(){
+    tft.fillScreen(ST7735_BLACK);
+    printTitle(10,"Asetukset");
+    tft.setTextSize(2);
+    printItem(40,50,"Helppo");
+    printItem(20,70,"Keskivaikea");
+    printItem(40,90,"Vaikea");
+
+    //if(
+  }
  

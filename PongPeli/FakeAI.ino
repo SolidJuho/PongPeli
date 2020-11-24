@@ -15,6 +15,6 @@ if(playerPosY2 + half_paddle < ballY) { //Tarkistaa että onko mailan sijainti a
 
 if(playerPosY2 < 1) playerPosY2 = 1;
 
-if(playerPosY2 + playerSize > 128) playerPosY2 = 128 - playerSize; //128 arvoa säätelemällä voidaan määrittää kuinka alhaalla tai ylhäällä tietokoneen maila käy = Periaatteessa kuinka helposti se osuu siihen.
+if(playerPosY2 + playerSize > 160) playerPosY2 = 128 - playerSize; //128 arvoa säätelemällä voidaan määrittää kuinka alhaalla tai ylhäällä tietokoneen maila käy = Periaatteessa kuinka helposti se osuu siihen.
 }
 }

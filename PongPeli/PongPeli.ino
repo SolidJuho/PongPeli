@@ -15,7 +15,7 @@
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
 const char menuNames[MenuItemCount][10] = { "Pelaa", "Tekijat", "Asetukset", "Lopeta"};
-int PADDLE_RATE = 1;
+int PADDLE_RATE = 10;
 int paddle_update;
 int currentMode = 0; //0 = Main Menu, 1 = Pong
 int playerSize = 42;
@@ -68,8 +68,7 @@ void loop() {
   playercontrolls(); //kutsutaan void playercontrolls toisesta tabistä looppiin
   if(currentMode == 0){
     //Main menu loop.
-  unsigned long time = millis();
-   
+   unsigned long time = millis();
   }else{
     ballUpdate();
     AI();
