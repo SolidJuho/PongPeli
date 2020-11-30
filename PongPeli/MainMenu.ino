@@ -4,6 +4,7 @@ const int startY = 50;
 int menuId;
 
 
+
 void printMainMenu(){
   tft.fillScreen(ST7735_BLACK);  
   printTitle(40, "Valikko");
@@ -26,6 +27,25 @@ void menuGoUp(){
     highlightItem(menuId, 0);
   }else{    
     highlightItem(menuId, menuId+1);
+  }
+}
+
+void AsetuksetGoUp () {
+  if (menuId2 == AsetusCount-1) {
+    Highlight(menuId2, 0);
+   
+  }
+  else{
+    Highlight(menuId2, menuId2+1);
+  }
+}
+
+void AsetuksetGoDown () {
+  if(menuId2 == 0) {
+    Highlight(menuId2, AsetusCount-1);
+  }
+  else{
+    Highlight(menuId2, menuId2-1);
   }
 }
 
@@ -54,6 +74,11 @@ void printMenuItems(){
        printItem(menuItemHeight(i), i);
   }
 }
+void asetusMenuItems(){
+  for(int i; i < AsetusCount; i++){
+       printItem(asetusItemHeight(i), i);
+  }
+}
 
 void printItem(int yPos, int menuID){
   tft.setCursor(40,yPos);
@@ -71,6 +96,9 @@ void printItem(int xPos, int yPos, char _text[]){
 int menuItemHeight(int menuId){
   return startY+(menuId*20);
 }
+int asetusItemHeight(int menuId2){
+  return startY+(menuId2*20);
+}
 
 void highlightItem(int oldHighlight, int newHighlight){
   
@@ -85,6 +113,19 @@ void highlightItem(int oldHighlight, int newHighlight){
   tft.print(">>");
 
   menuId = newHighlight;
+}
+void Highlight(int uusiHighlight, int vanhaHighlight){
+  
+  tft.setCursor(10,asetusItemHeight(vanhaHighlight));
+  tft.setTextColor(ST7735_BLACK);
+  tft.print(">>");
+  
+  //highlight new item.
+  tft.setCursor(10,asetusItemHeight(uusiHighlight));
+  tft.setTextColor(ST7735_WHITE);  
+  tft.print(">>");
+
+  menuId2 = uusiHighlight;
 }
 
 void PrintCredits(){
@@ -102,6 +143,17 @@ void PrintCredits(){
   delay(10000);
   printMainMenu();
 }
+void asetukset(){
+    currentMode=2;
+    tft.fillScreen(ST7735_BLACK);
+    printTitle(10,"Asetukset");
+    tft.setTextSize(2);
+    asetusMenuItems();
+    
+    printItem(40,50,"Helppo");
+    printItem(40,70,"Keski");
+    printItem(40,90,"Vaikea");
+    }
 
 void executeAction(){
   switch(menuId){
@@ -119,14 +171,29 @@ void executeAction(){
     break;
   }    
   }
-  void asetukset(){
-    tft.fillScreen(ST7735_BLACK);
-    printTitle(10,"Asetukset");
-    tft.setTextSize(2);
-    printItem(40,50,"Helppo");
-    printItem(20,70,"Keskivaikea");
-    printItem(40,90,"Vaikea");
-
-    //if(
+   void executeAction2(){
+  switch(menuId2){
+    case 0:
+    PADDLE_RATE = 100;
+    delay(100);
+    StartPong();
+    break;
+    case 1:
+    PADDLE_RATE = 50;
+    delay(100);
+    StartPong();
+    break;
+    case 2:
+    PADDLE_RATE = 10;
+    delay(100);
+    StartPong();
+    break;
+  }    
   }
+
+ 
+
+      
+    
+  
  
