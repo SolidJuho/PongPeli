@@ -4,6 +4,7 @@ const int startY = 50;
 int menuId;
 
 
+
 void printMainMenu(){
   tft.fillScreen(ST7735_BLACK);  
   printTitle(40, "Valikko");
@@ -12,7 +13,7 @@ void printMainMenu(){
 }
 
 void menuGoDown(){
-  if(menuId == 0){
+  if(menuId== 0){
     //Top of the list, Go to bottom.    
     highlightItem(menuId, MenuItemCount-1);
   }else{    
@@ -21,13 +22,14 @@ void menuGoDown(){
 }
 
 void menuGoUp(){
-   if(menuId == MenuItemCount-1){
+   if(menuId== MenuItemCount-1){
     //Top of the list, Go to bottom.    
     highlightItem(menuId, 0);
   }else{    
     highlightItem(menuId, menuId+1);
   }
 }
+
 
 void splashScreen(){
   
@@ -73,6 +75,7 @@ int menuItemHeight(int menuId){
 }
 
 void highlightItem(int oldHighlight, int newHighlight){
+
   
   //Unhighlight old item
   tft.setCursor(10,menuItemHeight(oldHighlight));
@@ -86,6 +89,7 @@ void highlightItem(int oldHighlight, int newHighlight){
 
   menuId = newHighlight;
 }
+
 
 void PrintCredits(){
   tft.fillScreen(ST7735_BLACK);
@@ -118,15 +122,19 @@ void executeAction(){
     restartArduino();
     break;
   }    
-  }
+}
+
   void asetukset(){
+    asetuksetmenu=1;
     tft.fillScreen(ST7735_BLACK);
     printTitle(10,"Asetukset");
     tft.setTextSize(2);
     printItem(40,50,"Helppo");
-    printItem(20,70,"Keskivaikea");
+    printItem(40,70,"keski");
     printItem(40,90,"Vaikea");
-
-    //if(
+    printItem(40,110,"Palaa");
+    highlightItem2(AsetuksetId,AsetuksetId);
   }
+ 
+
  

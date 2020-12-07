@@ -10,13 +10,17 @@
 #define TFT_SCLK 13   
 #define TFT_MOSI 11   
 
+#define AsetuksetItemCount 4
 #define MenuItemCount 4
 //Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCLK, TFT_RST);
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
+
+
+int asetuksetmenu = 0;
 const char menuNames[MenuItemCount][10] = { "Pelaa", "Tekijat", "Asetukset", "Lopeta"};
 int PADDLE_RATE = 10;
-int paddle_update;
+double paddle_update;
 int currentMode = 0; //0 = Main Menu, 1 = Pong
 int playerSize = 42;
 //PlayerLocations
@@ -44,6 +48,8 @@ void setup(void) {
   splashScreen();
   delay(500);  
   printMainMenu();
+  
+  
    pinMode(UP_BUTTON, INPUT_PULLUP); // Inputataan ylös nappi ylösvetovastukseen
    pinMode(DOWN_BUTTON, INPUT_PULLUP); // Inputataan alas nappi ylösvetovastukseen
    pinMode(SELECT_BUTTON, INPUT_PULLUP); // Inputataan valitse nappi ylösvetovastukseen
@@ -63,20 +69,22 @@ void restartArduino(){
 
 
 void loop() {
+
   returnToMainMenu(); //Kutsutaan void returnToMainMenu toisesta tabistä looppiin
-  mainemenucontrolls(); //kutsutaan void mainmenucontrolls toisesta tabistä looppiin
-  playercontrolls(); //kutsutaan void playercontrolls toisesta tabistä looppiin
+  asetuksetcontrolls();
+  
   if(currentMode == 0){
+    mainemenucontrolls(); //kutsutaan void mainmenucontrolls toisesta tabistä looppiin
     //Main menu loop.
    unsigned long time = millis();
+   
   }else{
     ballUpdate();
     AI();
-  }
-  delay(16); //33ms = 30FPS, 16ms = 60FPS, 41ms = 24FPS.
+    playercontrolls(); //kutsutaan void playercontrolls toisesta tabistä looppiin  
 
-   
-  
+  }
+  delay(16); //33ms = 30FPS, 16ms = 60FPS, 41ms = 24FPS. 
 }
 
 void ballUpdate(){

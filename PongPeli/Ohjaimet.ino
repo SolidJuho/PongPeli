@@ -1,23 +1,27 @@
 void mainemenucontrolls(){
 // Liikkuu ylös menussa kun nappia painetaan.
-  if(!digitalRead(UP_BUTTON) && currentMode==0){
+  while(!digitalRead(UP_BUTTON) && currentMode==0){
     delay(300);
     menuGoUp();
-    
-  }
+    break;
 
+  }
+    
 //Liikku alas menussa kun DOWN-nappia painetaan
-  if(!digitalRead(DOWN_BUTTON)&& currentMode==0) {
+ while(!digitalRead(DOWN_BUTTON)&& currentMode==0) {
      delay(300);
      menuGoDown();
-  }
+     break;
+ }     
 
-  if(!digitalRead(SELECT_BUTTON)&& currentMode==0){
+  while(!digitalRead(SELECT_BUTTON)&& currentMode==0){
      //Toimii mainmenun valikko nappina
      delay(500);
      executeAction();
-  }
+     break;
+ }     
 }
+
 
 
 void playercontrolls(){  
@@ -38,5 +42,28 @@ while(!digitalRead(SELECT_BUTTON) && currentMode==1) {
     currentMode=0;
     printMainMenu();
     break;//Poistutaan loopista
+  }
+}
+
+void asetuksetcontrolls(){
+
+ while(!digitalRead(UP_BUTTON) && asetuksetmenu==1){
+    delay(300);
+    AsetuksetGoUp();
+    break;
+
+  }
+
+  //Liikku alas menussa kun DOWN-nappia painetaan
+  while(!digitalRead(DOWN_BUTTON)&& asetuksetmenu==1) {
+     delay(300);
+     AsetuksetGoDown();
+     break;
+ }     
+
+  while(!digitalRead(SELECT_BUTTON) && asetuksetmenu==1){
+    delay(500);
+    executeAction2();
+    break;
   }
 }
