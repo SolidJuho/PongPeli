@@ -22,6 +22,22 @@ void mainemenucontrolls(){
  }     
 }
 
+void Asetusvalikko() {
+
+  if(!digitalRead(UP_BUTTON)){
+   
+    AsetuksetGoUp();
+  }
+  if(!digitalRead(DOWN_BUTTON)) {
+   
+    AsetuksetGoDown();
+    
+  }
+  if(!digitalRead(SELECT_BUTTON)){
+    delay(500);
+    executeAction2();
+  }
+}
 
 
 void playercontrolls(){  
