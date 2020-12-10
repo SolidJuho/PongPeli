@@ -1,4 +1,3 @@
-
  const int startY2 = 50;
  int AsetuksetId;
 
@@ -27,9 +26,7 @@ int menuItemHeight2(int AsetuksetId){
 }
 
  
-  void highlightItem2(int oldHighlight2, int newHighlight2){
-  
-  
+void highlightItem2(int oldHighlight2, int newHighlight2){  
   //Unhighlight old item
   tft.setCursor(10,menuItemHeight2(oldHighlight2));
   tft.setTextColor(ST7735_BLACK);
@@ -44,32 +41,25 @@ int menuItemHeight2(int AsetuksetId){
 }
 
   
-  
   void executeAction2(){
   switch(AsetuksetId){
     case 0:
-    PADDLE_RATE = 100;
+    PADDLE_RATE = 40;
     StartPong();
-    asetuksetmenu=0;
     break;
     case 1:
-    PADDLE_RATE = 50;
+    PADDLE_RATE = 30;
     StartPong();
-    asetuksetmenu=0;
     break;
     case 2:
-    PADDLE_RATE = 20;
+    PADDLE_RATE = 10;
     StartPong();
-    asetuksetmenu=0;
     break;
     case 3:
-    PADDLE_RATE = 10;
     printMainMenu();
     currentMode=0;
-    asetuksetmenu=0;
     break;
   }    
 } 
-  
   
   
